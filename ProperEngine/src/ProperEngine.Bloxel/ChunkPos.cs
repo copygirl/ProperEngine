@@ -3,7 +3,7 @@ using System.Diagnostics;
 using ProperEngine.ES;
 using ProperEngine.Utility;
 
-namespace ProperEngine.Voxel
+namespace ProperEngine.Bloxel
 {
 	public struct ChunkPos
 		: IEquatable<ChunkPos>

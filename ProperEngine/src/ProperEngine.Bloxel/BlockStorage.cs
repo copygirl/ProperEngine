@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using ProperEngine.ES;
 
-namespace ProperEngine.Voxel
+namespace ProperEngine.Bloxel
 {
 	public class BlockStorage<T>
 		where T : struct, IComponent

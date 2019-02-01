@@ -2,7 +2,7 @@ using System;
 using ProperEngine.ES;
 using ProperEngine.Utility;
 
-namespace ProperEngine.Voxel
+namespace ProperEngine.Bloxel
 {
 	public struct BlockPos
 		: IEntity
