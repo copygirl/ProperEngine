@@ -1,0 +1,7 @@
+{
+  "editor.insertSpaces": false,
+  "editor.renderWhitespace": "boundary",
+  "editor.rulers": [ 80 ],
+  
+  "diffEditor.ignoreTrimWhitespace": false,
+}

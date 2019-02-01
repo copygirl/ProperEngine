@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "Launch (Mono)",
+    "type": "mono",
+    "request": "launch",
+    "preLaunchTask": "build",
+    
+    "cwd": "${workspaceFolder}/",
+    "program": "${workspaceFolder}/ProperEngine/bin/Debug/netcoreapp2.2/ProperEngine.dll",
+    "args": [],
+    
+    "console": "internalConsole",
+    "internalConsoleOptions": "openOnSessionStart",
+  },{
+    "name": "Launch (CoreCLR)",
+    "type": "coreclr",
+    "request": "launch",
+    "preLaunchTask": "build",
+    
+    "cwd": "${workspaceFolder}/",
+    "program": "${workspaceFolder}/ProperEngine/bin/Debug/netcoreapp2.2/ProperEngine.dll",
+    "args": [],
+    
+    "console": "internalConsole",
+    "internalConsoleOptions": "openOnSessionStart",
+    "stopAtEntry": false,
+  }]
+}

@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [{
+    "label": "build",
+    "group": { "kind": "build", "isDefault": true },
+    "type": "process",
+    "problemMatcher": "$msCompile",
+    
+    "command": "dotnet",
+    "args": [ "build" ]
+  },{
+    "label": "test",
+    "group": { "kind": "test", "isDefault": true },
+    "type": "process",
+    "problemMatcher": "$msCompile",
+    
+    "options": { "cwd": "${workspaceFolder}/ProperEngine.Test/" },
+    "command": "dotnet",
+    "args": [ "test" ]
+  }]
+}
+
