@@ -7,7 +7,7 @@ namespace ProperEngine.ES
 			: IEnumerable<IComponentRef<TEntity, TComponent>>
 			, IComponentMap
 		where TEntity    : struct, IEntity
-		where TComponent : struct, IComponent
+		where TComponent : IComponent
 	{
 		/// <summary>
 		/// Returns the <see cref="IESAccessor{TEntity}"/> this component map
@@ -32,7 +32,8 @@ namespace ProperEngine.ES
 		/// </summary>
 		/// <param name="entity"> The entity the component is associated with. </param>
 		/// <param name="exists"> When this method returns, contains whether the component value existed. </param>
-		/// <returns> A reference to the component value. </returns>
+		/// <returns> A reference to the component value. If it has been newly
+		///           created, it will have the value <c>default(TComponent)</c>. </returns>
 		/// <exception cref="ArgumentException"> Thrown if the specified entity is invalid. </exception>
 		ref TComponent GetOrCreateRef(TEntity entity, out bool exists);
 		
@@ -66,7 +67,7 @@ namespace ProperEngine.ES
 	
 	public interface IComponentRef<TEntity, TComponent>
 		where TEntity    : struct, IEntity
-		where TComponent : struct, IComponent
+		where TComponent : IComponent
 	{
 		ref readonly TEntity Entity { get; }
 		

@@ -12,13 +12,13 @@ namespace ProperEngine.ES
 		new TEntity Entity { get; }
 		
 		ref TComponent TryGetRef<TComponent>(out bool success)
-			where TComponent : struct, IComponent;
+			where TComponent : IComponent;
 		
 		ref TComponent GetOrCreateRef<TComponent>(out bool exists)
-			where TComponent : struct, IComponent;
+			where TComponent : IComponent;
 		
 		ref TComponent TryRemoveRef<TComponent>(out bool success)
-			where TComponent : struct, IComponent;
+			where TComponent : IComponent;
 	}
 	
 	public interface IEntityRef

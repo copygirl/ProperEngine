@@ -21,7 +21,7 @@ namespace ProperEngine.ES
 		// IESAccessor<> implementation
 		
 		public IComponentMap<TEntity, TComponent> Component<TComponent>()
-			where TComponent : struct, IComponent
+			where TComponent : IComponent
 		{
 			if (!_maps.TryGetValue(typeof(TComponent), out var map)) {
 				map = new HashComponentMap<TEntity, TComponent>(this);
@@ -76,17 +76,17 @@ namespace ProperEngine.ES
 			public TEntity Entity { get; }
 			
 			public ref TComponent TryGetRef<TComponent>(out bool success)
-				where TComponent : struct, IComponent
+				where TComponent : IComponent
 					=> ref Accessor.Component<TComponent>()
 					               .TryGetRef(Entity, out success);
 			
 			public ref TComponent GetOrCreateRef<TComponent>(out bool exists)
-				where TComponent : struct, IComponent
+				where TComponent : IComponent
 					=> ref Accessor.Component<TComponent>()
 					               .GetOrCreateRef(Entity, out exists);
 			
 			public ref TComponent TryRemoveRef<TComponent>(out bool success)
-				where TComponent : struct, IComponent
+				where TComponent : IComponent
 					=> ref Accessor.Component<TComponent>()
 					               .TryRemoveRef(Entity, out success);
 			

@@ -6,7 +6,7 @@ namespace ProperEngine.ES
 		where TEntity : struct, IEntity
 	{
 		IComponentMap<TEntity, TComponent> Component<TComponent>()
-			where TComponent : struct, IComponent;
+			where TComponent : IComponent;
 		
 		IEntityRef<TEntity> Entity(TEntity entity);
 	}

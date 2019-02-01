@@ -7,16 +7,10 @@ namespace ProperEngine.ES
 	public class HashComponentMap<TEntity, TComponent>
 		: IComponentMap<TEntity, TComponent>
 		where TEntity    : struct, IEntity
-		where TComponent : struct, IComponent
+		where TComponent : IComponent
 	{
 		private readonly RefDictionary<TEntity, TComponent> _dict
 			= new RefDictionary<TEntity, TComponent>();
-		
-		public TComponent? this[TEntity entity] {
-			// Get and Set are available as extension methods.
-			get => this.Get(entity);
-			set => this.Set(entity, value);
-		}
 		
 		public HashComponentMap(IESAccessor<TEntity> accessor)
 			=> Accessor = accessor;
