@@ -63,6 +63,12 @@ namespace ProperEngine.Bloxel
 			=> (Index == other.Index);
 		public override bool Equals(object other)
 			=> (other is ChunkPos pos) && Equals(pos);
+		
+		public static bool operator ==(ChunkPos left, ChunkPos right)
+			=> left.Equals(right);
+		public static bool operator !=(ChunkPos left, ChunkPos right)
+			=> !left.Equals(right);
+		
 		public override int GetHashCode()
 			=> Index;
 	}

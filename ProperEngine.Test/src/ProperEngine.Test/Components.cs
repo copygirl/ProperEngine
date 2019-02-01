@@ -25,6 +25,12 @@ namespace ProperEngine.Test
 			=> (X == other.X) && (Y == other.Y);
 		public override bool Equals(object other)
 			=> (other is Position pos) && Equals(pos);
+		
+		public static bool operator ==(Position left, Position right)
+			=> left.Equals(right);
+		public static bool operator !=(Position left, Position right)
+			=> !left.Equals(right);
+		
 		public override int GetHashCode()
 			=> HashHelpers.Combine(X, Y);
 	}

@@ -24,6 +24,12 @@ namespace ProperEngine.Bloxel
 			=> (X == other.X) && (Y == other.Y) && (Z == other.Z);
 		public override bool Equals(object other)
 			=> (other is BlockPos pos) && Equals(pos);
+		
+		public static bool operator ==(BlockPos left, BlockPos right)
+			=> left.Equals(right);
+		public static bool operator !=(BlockPos left, BlockPos right)
+			=> !left.Equals(right);
+		
 		public override int GetHashCode()
 			=> HashHelpers.Combine(X, Y, Z);
 	}
