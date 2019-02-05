@@ -2,7 +2,8 @@ using System;
 
 namespace ProperEngine.ES
 {
-	public interface IESAccessor<TEntity> : IESAccessor
+	public interface IAccessor<TEntity>
+			: IAccessor
 		where TEntity : struct, IEntity
 	{
 		IComponentMap<TEntity, TComponent> Component<TComponent>()
@@ -11,7 +12,7 @@ namespace ProperEngine.ES
 		IEntityRef<TEntity> Entity(TEntity entity);
 	}
 	
-	public interface IESAccessor
+	public interface IAccessor
 	{
 		IComponentMap Component(Type componentType);
 		

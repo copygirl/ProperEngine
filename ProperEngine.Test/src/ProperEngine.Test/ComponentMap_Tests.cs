@@ -1,7 +1,9 @@
-﻿using System;
+using System;
 using System.Linq;
 using Xunit;
 using ProperEngine.ES;
+using ProperEngine.ES.Raw.Collections;
+using ProperEngine.ES.Raw;
 
 namespace ProperEngine.Test
 {
@@ -73,9 +75,10 @@ namespace ProperEngine.Test
 			Assert.Empty(map);
 			
 			for (var i = 1; i <= 10; i++)
-				map.Add(new Entity((uint)i), new Position(i * 100, i * -50));
+				map.GetOrCreateRef(new Entity((uint)i), out _) = new Position(i * 100, i * -50);
 			Assert.Equal(10, map.Count);
 			Assert.Equal(55, map.Sum(entry => entry.Entity.ID));
+			Enumerable.Sum(map, entry => entry.Entity.ID);
 			
 			foreach (var entry in map) {
 				var i = (int)entry.Entity.ID;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 
 namespace ProperEngine.ES
 {
@@ -7,24 +6,20 @@ namespace ProperEngine.ES
 			: IEntityRef
 		where TEntity : struct, IEntity
 	{
-		new IESAccessor<TEntity> Accessor { get; }
-		
 		new TEntity Entity { get; }
 		
-		ref TComponent TryGetRef<TComponent>(out bool success)
+		TComponent TryGet<TComponent>(out bool success)
 			where TComponent : IComponent;
 		
-		ref TComponent GetOrCreateRef<TComponent>(out bool exists)
+		TComponent Set<TComponent>(TComponent value, out bool exists)
 			where TComponent : IComponent;
 		
-		ref TComponent TryRemoveRef<TComponent>(out bool success)
+		TComponent TryRemove<TComponent>(out bool success)
 			where TComponent : IComponent;
 	}
 	
 	public interface IEntityRef
 	{
-		IESAccessor Accessor { get; }
-		
 		IEntity Entity { get; }
 		
 		IComponent Get(Type componentType);

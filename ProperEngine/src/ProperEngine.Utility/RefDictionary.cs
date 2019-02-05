@@ -1,13 +1,24 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using ProperEngine.Utility;
 
-namespace ProperEngine.ES
+namespace ProperEngine.Utility
 {
 	internal class RefDictionary<TKey, TValue>
-		: IEnumerable<KeyValuePair<TKey, TValue>>
 	{
+		internal struct Entry
+		{
+			public int HashCode;
+			public int Next;
+			public TKey Key;
+			public TValue Value;
+			
+			internal bool HasValue => (HashCode >= 0);
+		}
+		
+		private static TValue EMPTY_COMPONENT
+			= default(TValue);
+		
+		
 		private readonly IEqualityComparer<TKey> _comparer;
 		
 		private int[] _buckets;
@@ -94,7 +105,7 @@ namespace ProperEngine.ES
 			
 			ref TValue GetEmptyEntry()
 			{
-				EMPTY_COMPONENT = default(TValue);
+				EMPTY_COMPONENT = default;
 				return ref EMPTY_COMPONENT;
 			}
 			
@@ -156,7 +167,7 @@ namespace ProperEngine.ES
 				entry.HashCode = hashCode;
 				entry.Next     = bucket - 1;
 				entry.Key      = key;
-				entry.Value    = default(TValue);
+				entry.Value    = default;
 				
 				bucket = index + 1;
 				_version++;
@@ -166,83 +177,46 @@ namespace ProperEngine.ES
 		}
 		
 		
-		private static TValue EMPTY_COMPONENT
-			= default(TValue);
-		
-		private struct Entry
-		{
-			public int HashCode;
-			public int Next;
-			public TKey Key;
-			public TValue Value;
-			
-			public bool HasValue => (HashCode >= 0);
-		}
-		
-		
 		// IEntryEnumerable implementation
 		
-		public EntryEnumerator GetEntryEnumerator()
-			=> new EntryEnumerator(this);
+		public Enumerator GetEnumerator()
+			=> new Enumerator(this);
 		
-		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
-			=> GetEntryEnumerator();
-		
-		IEnumerator IEnumerable.GetEnumerator()
-			=> GetEnumerator();
-		
-		
-		public class EntryEnumerator
-			: IEnumerator<KeyValuePair<TKey, TValue>>
+		public struct Enumerator
 		{
 			private readonly RefDictionary<TKey, TValue> _dict;
-			private int _version;
 			private int _index;
+			private int _version;
 			
-			public ref readonly TKey CurrentKey
-				=> ref GetCurrentEntry().Key;
-			public ref TValue CurrentValue
-				=> ref GetCurrentEntry().Value;
-			
-			public KeyValuePair<TKey, TValue> Current
-				=> KeyValuePair.Create(CurrentKey, CurrentValue);
-			object IEnumerator.Current => Current;
-			
-			public EntryEnumerator(RefDictionary<TKey, TValue> dict)
+			internal Enumerator(RefDictionary<TKey, TValue> dict)
 			{
-				_dict = dict;
-				Reset();
-			}
-			
-			public void Reset()
-			{
-				_version = _dict._version;
+				_dict    = dict;
 				_index   = -1;
+				_version = _dict._version;
 			}
 			
 			public bool MoveNext()
 			{
 				while (++_index < _dict._count)
-					if (GetCurrentEntry().HasValue)
+					if (_dict._entries[_index].HasValue)
 						return true;
 				return false;
 			}
 			
-			private ref Entry GetCurrentEntry()
-			{
-				if (_dict._version != _version)
-					throw new InvalidOperationException(
-						"RefDictionary was modified during enumeration");
-				if (_index < 0)
-					throw new InvalidOperationException(
-						"MoveNext has not been called yet");
-				if (_index >= _dict._count)
-					throw new InvalidOperationException(
-						"MoveNext moved past the final element");
-				return ref _dict._entries[_index];
-			}
+			public EntryRef Current
+				=> new EntryRef(_dict._entries, _index);
+		}
+		
+		public struct EntryRef
+		{
+			private readonly Entry[] _entries;
+			private readonly int _index;
 			
-			public void Dispose() {  }
+			public TKey Key => _entries[_index].Key;
+			public ref TValue Value => ref _entries[_index].Value;
+			
+			internal EntryRef(Entry[] entries, int index)
+				{ _entries = entries; _index = index; }
 		}
 	}
 	
