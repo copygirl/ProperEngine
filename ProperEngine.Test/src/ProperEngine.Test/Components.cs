@@ -5,7 +5,7 @@ using ProperEngine.Utility;
 namespace ProperEngine.Test
 {
 	public struct Position
-		: IComponent 
+		: IComponent
 		, IEquatable<Position>
 	{
 		public static readonly Position ORIGIN = new Position(0, 0);
@@ -33,5 +33,20 @@ namespace ProperEngine.Test
 		
 		public override int GetHashCode()
 			=> HashHelpers.Combine(X, Y);
+	}
+	
+	public class Name
+		: IComponent
+	{
+		public string Value { get; }
+		
+		public Name(string value)
+		{
+			if (value == null) throw new ArgumentNullException(nameof(value));
+			Value = value;
+		}
+		
+		public override string ToString()
+			=> $"Name [ \"{ Value.ToLiteral() }\" ]";
 	}
 }
