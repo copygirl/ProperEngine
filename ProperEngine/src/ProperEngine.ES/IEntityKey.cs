@@ -2,6 +2,10 @@
 
 namespace ProperEngine.ES
 {
+	/// <summary>
+	/// Represents a key, uniquely identifying an entity in the context of an
+	/// <see cref="IAccessor"/> and associate <see cref="IComponent"/>s with it.
+	/// </summary>
 	public interface IEntityKey {  }
 	
 	

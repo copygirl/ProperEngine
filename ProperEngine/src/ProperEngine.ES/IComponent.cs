@@ -2,6 +2,10 @@ using System;
 
 namespace ProperEngine.ES
 {
+	/// <summary>
+	/// Represents a particular property an entity can have, with each separate
+	/// type representing a different atomic piece of information.
+	/// </summary>
 	public interface IComponent {  }
 	
 	
