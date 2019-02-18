@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Xunit;
 using ProperEngine.ES;
@@ -7,15 +7,15 @@ using ProperEngine.ES.Raw;
 
 namespace ProperEngine.Test
 {
-	using Entity = Entity<UInt32>;
+	using EntityID = EntityID<UInt32>;
 	
 	public class RawComponentMap_Tests
 	{
-		public IRawComponentMap<Entity, Position> Map { get; }
-			= new HashComponentMap<Entity, Position>(null);
+		public IRawComponentMap<EntityID, Position> Map { get; }
+			= new HashComponentMap<EntityID, Position>(null);
 		
-		public Entity EntityNone { get; } = new Entity(0);
-		public Entity EntitySome { get; } = new Entity(1);
+		public EntityID EntityNone { get; } = new EntityID(0);
+		public EntityID EntitySome { get; } = new EntityID(1);
 		
 		[Fact]
 		public void Basic()
@@ -58,7 +58,7 @@ namespace ProperEngine.Test
 		{
 			var map = (IComponentMap)Map;
 			
-			Assert.Equal(typeof(Entity), map.EntityType);
+			Assert.Equal(typeof(EntityID), map.KeyType);
 			Assert.Equal(typeof(Position), map.ComponentType);
 			
 			var beforeCreated = map.Set(EntitySome, new Position(100, 100));
@@ -87,7 +87,7 @@ namespace ProperEngine.Test
 			Assert.Throws<ArgumentNullException>(() => map.Set(EntitySome, null));
 			Assert.Throws<ArgumentNullException>(() => map.Remove(null));
 			
-			Assert.Throws<ArgumentException>(() => map.Get(new Entity<byte>()));
+			Assert.Throws<ArgumentException>(() => map.Get(new EntityID<byte>()));
 			Assert.Throws<ArgumentException>(() => map.Set(EntitySome, new Name("Error")));
 		}
 		
@@ -98,21 +98,21 @@ namespace ProperEngine.Test
 			Assert.Empty(Map);
 			
 			for (var i = 1; i <= 10; i++) {
-				ref var component = ref Map.GetOrCreateRef(new Entity((uint)i), out _);
+				ref var component = ref Map.GetOrCreateRef(new EntityID((uint)i), out _);
 				component = new Position(i * 100, i * -50);
 			}
 			
 			Assert.Equal(10, Map.Count());
-			Assert.Equal(55, Map.Sum(entry => entry.Entity.ID));
-			Enumerable.Sum(Map, entry => entry.Entity.ID);
+			Assert.Equal(55, Map.Sum(entry => entry.Key.Value));
+			Enumerable.Sum(Map, entry => entry.Key.Value);
 			
 			foreach (var entry in Map) {
-				var i = (int)entry.Entity.ID;
-				Assert.Equal(i * 100, entry.Component.X);
-				Assert.Equal(i * -50, entry.Component.Y);
-				entry.Component = Position.ORIGIN;
+				var i = (int)entry.Key.Value;
+				Assert.Equal(i * 100, entry.Value.X);
+				Assert.Equal(i * -50, entry.Value.Y);
+				entry.Value = Position.ORIGIN;
 			}
-			Assert.Equal(0, Map.Sum(entry => entry.Component.X));
+			Assert.Equal(0, Map.Sum(entry => entry.Value.X));
 		}
 	}
 }

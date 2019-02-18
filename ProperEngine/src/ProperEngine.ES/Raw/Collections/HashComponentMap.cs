@@ -5,53 +5,53 @@ using ProperEngine.Utility;
 
 namespace ProperEngine.ES.Raw.Collections
 {
-	public class HashComponentMap<TEntity, TComponent>
-			: IRawComponentMap<TEntity, TComponent>
-		where TEntity    : struct, IEntity
+	public class HashComponentMap<TKey, TComponent>
+			: IRawComponentMap<TKey, TComponent>
+		where TKey       : struct, IEntityKey
 		where TComponent : struct, IComponent
 	{
-		private readonly RefDictionary<TEntity, TComponent> _dict
-			= new RefDictionary<TEntity, TComponent>();
+		private readonly RefDictionary<TKey, TComponent> _dict
+			= new RefDictionary<TKey, TComponent>();
 		
-		public HashComponentMap(IRawAccessor<TEntity> accessor)
+		public HashComponentMap(IRawAccessor<TKey> accessor)
 			=> Accessor = accessor;
 		
 		
 		// IRawComponentMap<,> implementation
 		
-		public IRawAccessor<TEntity> Accessor { get; }
+		public IRawAccessor<TKey> Accessor { get; }
 		
-		public ref TComponent TryGetRef(TEntity entity, out bool success)
-			=> ref _dict.TryGetEntry(GetBehavior.Default, entity, out success);
+		public ref TComponent TryGetRef(TKey key, out bool success)
+			=> ref _dict.TryGetEntry(GetBehavior.Default, key, out success);
 		
-		public ref TComponent GetOrCreateRef(TEntity entity, out bool exists)
-			=> ref _dict.TryGetEntry(GetBehavior.Create, entity, out exists);
+		public ref TComponent GetOrCreateRef(TKey key, out bool exists)
+			=> ref _dict.TryGetEntry(GetBehavior.Create, key, out exists);
 		
-		public ref TComponent TryRemoveRef(TEntity entity, out bool success)
-			=> ref _dict.TryGetEntry(GetBehavior.Remove, entity, out success);
+		public ref TComponent TryRemoveRef(TKey key, out bool success)
+			=> ref _dict.TryGetEntry(GetBehavior.Remove, key, out success);
 		
 		
 		// IComponentMap<,> implementation
 		
-		IAccessor<TEntity> IComponentMap<TEntity, TComponent>.Accessor => Accessor;
+		IAccessor<TKey> IComponentMap<TKey, TComponent>.Accessor => Accessor;
 		
-		public TComponent TryGet(TEntity entity, out bool success)
+		public TComponent TryGet(TKey key, out bool success)
 		{
-			ref TComponent component = ref TryGetRef(entity, out success);
+			ref TComponent component = ref TryGetRef(key, out success);
 			return (success ? component : default);
 		}
 		
-		public TComponent Set(TEntity entity, TComponent value, out bool exists)
+		public TComponent Set(TKey key, TComponent value, out bool exists)
 		{
-			ref TComponent component = ref GetOrCreateRef(entity, out exists);
+			ref TComponent component = ref GetOrCreateRef(key, out exists);
 			var old = (exists ? component : default);
 			component = value;
 			return old;
 		}
 		
-		public TComponent TryRemove(TEntity entity, out bool success)
+		public TComponent TryRemove(TKey key, out bool success)
 		{
-			ref TComponent component = ref TryRemoveRef(entity, out success);
+			ref TComponent component = ref TryRemoveRef(key, out success);
 			return (success ? component : default);
 		}
 		
@@ -60,20 +60,20 @@ namespace ProperEngine.ES.Raw.Collections
 		
 		IAccessor IComponentMap.Accessor => Accessor;
 		
-		Type IComponentMap.EntityType => typeof(TEntity);
+		Type IComponentMap.KeyType => typeof(TKey);
 		
 		Type IComponentMap.ComponentType => typeof(TComponent);
 		
-		IComponent IComponentMap.Get(IEntity entity)
+		IComponent IComponentMap.Get(IEntityKey key)
 		{
-			var e = entity.Ensure<TEntity>(nameof(entity));
+			var e = key.Ensure<TKey>(nameof(key));
 			ref TComponent component = ref TryGetRef(e, out var success);
 			return (success ? (IComponent)component : null);
 		}
 		
-		IComponent IComponentMap.Set(IEntity entity, IComponent value)
+		IComponent IComponentMap.Set(IEntityKey key, IComponent value)
 		{
-			var e = entity.Ensure<TEntity>(nameof(entity));
+			var e = key.Ensure<TKey>(nameof(key));
 			var v = value.Ensure<TComponent>(nameof(value));
 			ref TComponent component = ref GetOrCreateRef(e, out var exists);
 			var old = (exists ? (IComponent)component : null);
@@ -81,9 +81,9 @@ namespace ProperEngine.ES.Raw.Collections
 			return old;
 		}
 		
-		IComponent IComponentMap.Remove(IEntity entity)
+		IComponent IComponentMap.Remove(IEntityKey key)
 		{
-			var e = entity.Ensure<TEntity>(nameof(entity));
+			var e = key.Ensure<TKey>(nameof(key));
 			ref TComponent component = ref TryRemoveRef(e, out var success);
 			return (success ? (IComponent)component : null);
 		}
@@ -93,7 +93,7 @@ namespace ProperEngine.ES.Raw.Collections
 		
 		public int Count => _dict.Count;
 		
-		public IEnumerator<IComponentRef<TEntity, TComponent>> GetEnumerator()
+		public IEnumerator<IComponentRef<TKey, TComponent>> GetEnumerator()
 		{
 			foreach (var entry in _dict)
 				yield return new ComponentRef(entry);
@@ -104,25 +104,25 @@ namespace ProperEngine.ES.Raw.Collections
 		
 		
 		public struct ComponentRef
-			: IComponentRef<TEntity, TComponent>
+			: IComponentRef<TKey, TComponent>
 		{
-			internal readonly RefDictionary<TEntity, TComponent>.EntryRef _entry;
+			internal readonly RefDictionary<TKey, TComponent>.EntryRef _entry;
 			
-			internal ComponentRef(RefDictionary<TEntity, TComponent>.EntryRef entry)
+			internal ComponentRef(RefDictionary<TKey, TComponent>.EntryRef entry)
 				=> _entry = entry;
 			
-			public TEntity Entity => _entry.Key;
+			public TKey Key => _entry.Key;
 			
-			IEntity IComponentRef.Entity => Entity;
+			IEntityKey IComponentRef.Key => Key;
 			
-			public TComponent Component {
+			public TComponent Value {
 				get => _entry.Value;
 				set => _entry.Value = value;
 			}
 			
-			IComponent IComponentRef.Component {
-				get => Component;
-				set => Component = value.Ensure<TComponent>(nameof(value));
+			IComponent IComponentRef.Value {
+				get => Value;
+				set => Value = value.Ensure<TComponent>(nameof(value));
 			}
 		}
 	}

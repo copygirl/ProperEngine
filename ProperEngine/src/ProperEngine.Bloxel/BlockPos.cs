@@ -5,7 +5,7 @@ using ProperEngine.Utility;
 namespace ProperEngine.Bloxel
 {
 	public struct BlockPos
-		: IEntity
+		: IEntityKey
 		, IEquatable<BlockPos>
 	{
 		public static readonly BlockPos ORIGIN

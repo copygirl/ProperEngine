@@ -2,11 +2,10 @@ using System;
 
 namespace ProperEngine.ES
 {
-	public interface IEntityRef<TEntity>
-			: IEntityRef
-		where TEntity : struct, IEntity
+	public interface IEntityRef<TKey> : IEntityRef
+		where TKey : struct, IEntityKey
 	{
-		new TEntity Entity { get; }
+		new TKey Key { get; }
 		
 		TComponent TryGet<TComponent>(out bool success)
 			where TComponent : IComponent;
@@ -20,7 +19,7 @@ namespace ProperEngine.ES
 	
 	public interface IEntityRef
 	{
-		IEntity Entity { get; }
+		IEntityKey Key { get; }
 		
 		IComponent Get(Type componentType);
 		

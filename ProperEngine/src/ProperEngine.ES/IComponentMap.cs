@@ -4,19 +4,19 @@ using System.Collections.Generic;
 
 namespace ProperEngine.ES
 {
-	public interface IComponentMap<TEntity, TComponent>
+	public interface IComponentMap<TKey, TComponent>
 			: IComponentMap
-			, IReadOnlyCollection<IComponentRef<TEntity, TComponent>>
-		where TEntity    : struct, IEntity
+			, IReadOnlyCollection<IComponentRef<TKey, TComponent>>
+		where TKey       : struct, IEntityKey
 		where TComponent : IComponent
 	{
-		new IAccessor<TEntity> Accessor { get; }
+		new IAccessor<TKey> Accessor { get; }
 		
-		TComponent TryGet(TEntity entity, out bool success);
+		TComponent TryGet(TKey key, out bool success);
 		
-		TComponent Set(TEntity entity, TComponent value, out bool exists);
+		TComponent Set(TKey key, TComponent value, out bool exists);
 		
-		TComponent TryRemove(TEntity entity, out bool success);
+		TComponent TryRemove(TKey key, out bool success);
 	}
 	
 	public interface IComponentMap
@@ -24,14 +24,14 @@ namespace ProperEngine.ES
 	{
 		IAccessor Accessor { get; }
 		
-		Type EntityType { get; }
+		Type KeyType { get; }
 		
 		Type ComponentType { get; }
 		
-		IComponent Get(IEntity entity);
+		IComponent Get(IEntityKey key);
 		
-		IComponent Set(IEntity entity, IComponent value);
+		IComponent Set(IEntityKey key, IComponent value);
 		
-		IComponent Remove(IEntity entity);
+		IComponent Remove(IEntityKey key);
 	}
 }

@@ -1,10 +1,10 @@
 namespace ProperEngine.ES.Raw
 {
-	public interface IRawAccessor<TEntity>
-			: IAccessor<TEntity>
-		where TEntity : struct, IEntity
+	public interface IRawAccessor<TKey>
+			: IAccessor<TKey>
+		where TKey : struct, IEntityKey
 	{
-		new IRawComponentMap<TEntity, TComponent> Component<TComponent>()
+		new IRawComponentMap<TKey, TComponent> Component<TComponent>()
 			where TComponent : struct, IComponent;
 	}
 }
