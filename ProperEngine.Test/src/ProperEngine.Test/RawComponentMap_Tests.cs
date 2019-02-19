@@ -103,11 +103,11 @@ namespace ProperEngine.Test
 			}
 			
 			Assert.Equal(10, Map.Count());
-			Assert.Equal(55, Map.Sum(entry => entry.Key.Value));
-			Enumerable.Sum(Map, entry => entry.Key.Value);
+			Assert.Equal(55, Map.Sum(entry => (uint)entry.Key));
+			Enumerable.Sum(Map, entry => (uint)entry.Key);
 			
 			foreach (var entry in Map) {
-				var i = (int)entry.Key.Value;
+				var i = (int)(uint)entry.Key;
 				Assert.Equal(i * 100, entry.Value.X);
 				Assert.Equal(i * -50, entry.Value.Y);
 				entry.Value = Position.ORIGIN;
