@@ -1,37 +1,25 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace ProperEngine.ES
 {
-	public interface IComponentMap<TKey, TComponent>
-			: IComponentMap
-			, IReadOnlyCollection<IComponentRef<TKey, TComponent>>
-		where TKey       : struct, IEntityKey
-		where TComponent : IComponent
+	public interface IComponentMap<TEntityKey, TComponent> : IComponentMap
+		where TEntityKey : struct
 	{
-		new IAccessor<TKey> Accessor { get; }
+		TComponent Get(TEntityKey key);
 		
-		TComponent TryGet(TKey key, out bool success);
-		
-		TComponent Set(TKey key, TComponent value, out bool exists);
-		
-		TComponent TryRemove(TKey key, out bool success);
+		TComponent Set(TEntityKey key, TComponent value);
 	}
 	
 	public interface IComponentMap
 		: IEnumerable
 	{
-		IAccessor Accessor { get; }
-		
-		Type KeyType { get; }
+		Type EntityKeyType { get; }
 		
 		Type ComponentType { get; }
 		
-		IComponent Get(IEntityKey key);
+		object Get(object key);
 		
-		IComponent Set(IEntityKey key, IComponent value);
-		
-		IComponent Remove(IEntityKey key);
+		object Set(object key, object value);
 	}
 }

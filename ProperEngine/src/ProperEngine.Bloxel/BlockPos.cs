@@ -1,12 +1,10 @@
 using System;
-using ProperEngine.ES;
 using ProperEngine.Utility;
 
 namespace ProperEngine.Bloxel
 {
 	public struct BlockPos
-		: IEntityKey
-		, IEquatable<BlockPos>
+		: IEquatable<BlockPos>
 	{
 		public static readonly BlockPos ORIGIN
 			= new BlockPos(0, 0, 0);

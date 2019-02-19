@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using ProperEngine.ES;
 using ProperEngine.Utility;
 
 namespace ProperEngine.Bloxel

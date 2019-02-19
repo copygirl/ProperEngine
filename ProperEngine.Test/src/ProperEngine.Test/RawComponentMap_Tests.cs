@@ -3,16 +3,15 @@ using System.Linq;
 using Xunit;
 using ProperEngine.ES;
 using ProperEngine.ES.Raw.Collections;
-using ProperEngine.ES.Raw;
 
 namespace ProperEngine.Test
 {
 	using EntityID = EntityID<UInt32>;
-	
+
 	public class RawComponentMap_Tests
 	{
-		public IRawComponentMap<EntityID, Position> Map { get; }
-			= new HashComponentMap<EntityID, Position>(null);
+		public RawComponentMap<EntityID, Position> Map { get; }
+			= new RawComponentMap<EntityID, Position>();
 		
 		public EntityID EntityNone { get; } = new EntityID(0);
 		public EntityID EntitySome { get; } = new EntityID(1);
@@ -20,35 +19,35 @@ namespace ProperEngine.Test
 		[Fact]
 		public void Basic()
 		{
-			Assert.Equal(0, Map.Count);
+			Assert.Empty(Map);
 			bool found;
 			
 			ref var newlyCreated = ref Map.GetOrCreateRef(EntitySome, out found);
-			Assert.Equal(1, Map.Count);
+			Assert.Single(Map);
 			Assert.Equal(default(Position), newlyCreated);
 			Assert.False(found);
 			newlyCreated = new Position(100, 100);
 			
 			ref var nonExistent = ref Map.TryGetRef(EntityNone, out found);
-			Assert.Equal(1, Map.Count);
+			Assert.Single(Map);
 			Assert.Equal(default(Position), nonExistent);
 			Assert.False(found);
 			// This should not have any effect, but it's valid nonetheless.
 			nonExistent = new Position(100, 100);
 			
 			ref var testExistent = ref Map.GetOrCreateRef(EntitySome, out found);
-			Assert.Equal(1, Map.Count);
+			Assert.Single(Map);
 			Assert.Equal(new Position(100, 100), testExistent);
 			Assert.True(found);
 			testExistent = new Position(200, 200);
 			
 			var previous = Map.TryRemoveRef(EntitySome, out found);
-			Assert.Equal(0, Map.Count);
+			Assert.Empty(Map);
 			Assert.Equal(new Position(200, 200), previous);
 			Assert.True(found);
 			
 			var removeNonExistent = Map.TryRemoveRef(EntitySome, out found);
-			Assert.Equal(0, Map.Count);
+			Assert.Empty(Map);
 			Assert.Equal(default(Position), removeNonExistent);
 			Assert.False(found);
 		}
@@ -58,7 +57,7 @@ namespace ProperEngine.Test
 		{
 			var map = (IComponentMap)Map;
 			
-			Assert.Equal(typeof(EntityID), map.KeyType);
+			Assert.Equal(typeof(EntityID), map.EntityKeyType);
 			Assert.Equal(typeof(Position), map.ComponentType);
 			
 			var beforeCreated = map.Set(EntitySome, new Position(100, 100));
@@ -70,10 +69,10 @@ namespace ProperEngine.Test
 			var beforeChanged = map.Set(EntitySome, new Position(200, 200));
 			Assert.Equal(new Position(100, 100), beforeChanged);
 			
-			var beforeRemoved = map.Remove(EntitySome);
+			var beforeRemoved = map.Set(EntitySome, null);
 			Assert.Equal(new Position(200, 200), beforeRemoved);
 			
-			var removeNonExistent = map.Remove(EntitySome);
+			var removeNonExistent = map.Set(EntitySome, null);
 			Assert.Null(removeNonExistent);
 		}
 		
@@ -84,8 +83,6 @@ namespace ProperEngine.Test
 			
 			Assert.Throws<ArgumentNullException>(() => map.Get(null));
 			Assert.Throws<ArgumentNullException>(() => map.Set(null, default(Position)));
-			Assert.Throws<ArgumentNullException>(() => map.Set(EntitySome, null));
-			Assert.Throws<ArgumentNullException>(() => map.Remove(null));
 			
 			Assert.Throws<ArgumentException>(() => map.Get(new EntityID<byte>()));
 			Assert.Throws<ArgumentException>(() => map.Set(EntitySome, new Name("Error")));

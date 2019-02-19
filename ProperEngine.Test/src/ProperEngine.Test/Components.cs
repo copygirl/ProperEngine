@@ -1,12 +1,10 @@
 using System;
-using ProperEngine.ES;
 using ProperEngine.Utility;
 
 namespace ProperEngine.Test
 {
 	public struct Position
-		: IComponent
-		, IEquatable<Position>
+		: IEquatable<Position>
 	{
 		public static readonly Position ORIGIN = new Position(0, 0);
 		
@@ -36,7 +34,6 @@ namespace ProperEngine.Test
 	}
 	
 	public class Name
-		: IComponent
 	{
 		public string Value { get; }
 		

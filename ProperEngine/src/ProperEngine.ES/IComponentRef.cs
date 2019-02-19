@@ -1,17 +1,17 @@
 namespace ProperEngine.ES
 {
-	public interface IComponentRef<TKey, TComponent> : IComponentRef
-		where TKey : struct, IEntityKey
+	public interface IComponentRef<TEntityKey, TComponent> : IComponentRef
+		where TEntityKey : struct
 	{
-		new TKey Key { get; }
+		new TEntityKey Key { get; }
 		
 		new TComponent Value { get; set; }
 	}
 	
 	public interface IComponentRef
 	{
-		IEntityKey Key { get; }
+		object Key { get; }
 		
-		IComponent Value { get; set; }
+		object Value { get; set; }
 	}
 }

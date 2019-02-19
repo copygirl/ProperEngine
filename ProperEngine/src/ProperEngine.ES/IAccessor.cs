@@ -2,19 +2,18 @@ using System;
 
 namespace ProperEngine.ES
 {
-	public interface IAccessor<TKey> : IAccessor
-		where TKey : struct, IEntityKey
+	public interface IAccessor<TEntityKey> : IAccessor
+		where TEntityKey : struct
 	{
-		IComponentMap<TKey, TComponent> Component<TComponent>()
-			where TComponent : IComponent;
+		IComponentMap<TEntityKey, TComponent> Component<TComponent>();
 		
-		IEntityRef<TKey> Entity(TKey key);
+		IEntityRef<TEntityKey> Entity(TEntityKey key);
 	}
 	
 	public interface IAccessor
 	{
 		IComponentMap Component(Type componentType);
 		
-		IEntityRef Entity(IEntityKey key);
+		IEntityRef Entity(object key);
 	}
 }

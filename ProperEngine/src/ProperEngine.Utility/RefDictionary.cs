@@ -207,7 +207,7 @@ namespace ProperEngine.Utility
 				=> new EntryRef(_dict._entries, _index);
 		}
 		
-		public struct EntryRef
+		public readonly struct EntryRef
 		{
 			private readonly Entry[] _entries;
 			private readonly int _index;

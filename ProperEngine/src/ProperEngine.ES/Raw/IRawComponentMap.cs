@@ -2,19 +2,10 @@ using System;
 
 namespace ProperEngine.ES.Raw
 {
-	public interface IRawComponentMap<TKey, TComponent>
-			: IComponentMap<TKey, TComponent>
-			// TODO: Instead, implement a different method to iterate component references.
-			// , IReadOnlyCollection<IRawComponentRef<TKey, TComponent>>
-		where TKey       : struct, IEntityKey
-		where TComponent : struct, IComponent
+	public interface IRawComponentMap<TEntityKey, TComponent>
+		where TEntityKey : struct
+		where TComponent : struct
 	{
-		/// <summary>
-		/// Returns the <see cref="IRawAccessor{TKey}"/> this component map
-		/// belongs to, if any.
-		/// </summary>
-		new IRawAccessor<TKey> Accessor { get; }
-		
 		/// <summary>
 		/// Attempts to get a reference to an already existing component value
 		/// associated with the specified entity key.
@@ -24,7 +15,7 @@ namespace ProperEngine.ES.Raw
 		/// <returns> A reference to the existing component value if <paramref name="success"/> is <c>true</c>
 		///     -OR-  a dummy reference with the value <c>default</c> if it's <c>false</c>. </returns>
 		/// <exception cref="ArgumentException"> Thrown if the specified entity is invalid. </exception>
-		ref TComponent TryGetRef(TKey key, out bool success);
+		ref TComponent TryGetRef(TEntityKey key, out bool success);
 		
 		/// <summary>
 		/// Gets a reference to a component value associated with the specified
@@ -35,7 +26,7 @@ namespace ProperEngine.ES.Raw
 		/// <returns> A reference to the component value. If it has been newly
 		///           created, it will have the value <c>default</c>. </returns>
 		/// <exception cref="ArgumentException"> Thrown if the specified entity is invalid. </exception>
-		ref TComponent GetOrCreateRef(TKey key, out bool exists);
+		ref TComponent GetOrCreateRef(TEntityKey key, out bool exists);
 		
 		/// <summary>
 		/// Attempts to remove an existing component value associated with the
@@ -47,6 +38,6 @@ namespace ProperEngine.ES.Raw
 		/// <returns> A reference to stale component value if <paramref name="success"/> is <c>true</c>
 		///     -OR-  a dummy reference with the value <c>default</c> if it's <c>false</c>. </returns>
 		/// <exception cref="ArgumentException"> Thrown if the specified entity is invalid. </exception>
-		ref TComponent TryRemoveRef(TKey key, out bool success);
+		ref TComponent TryRemoveRef(TEntityKey key, out bool success);
 	}
 }

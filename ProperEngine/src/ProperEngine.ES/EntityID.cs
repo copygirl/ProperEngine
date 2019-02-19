@@ -3,8 +3,7 @@
 namespace ProperEngine.ES
 {
 	public readonly struct EntityID<T>
-			: IEntityKey
-			, IEquatable<EntityID<T>>
+			: IEquatable<EntityID<T>>
 			, IComparable<EntityID<T>>
 		where T : struct
 			, IEquatable<T>

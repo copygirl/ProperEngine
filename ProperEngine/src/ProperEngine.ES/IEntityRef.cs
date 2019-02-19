@@ -2,29 +2,26 @@ using System;
 
 namespace ProperEngine.ES
 {
-	public interface IEntityRef<TKey> : IEntityRef
-		where TKey : struct, IEntityKey
+	public interface IEntityRef<TEntityKey> : IEntityRef
+		where TEntityKey : struct
 	{
-		new TKey Key { get; }
+		new TEntityKey EntityKey { get; }
 		
-		TComponent TryGet<TComponent>(out bool success)
-			where TComponent : IComponent;
+		TComponent TryGet<TComponent>(out bool success);
 		
-		TComponent Set<TComponent>(TComponent value, out bool exists)
-			where TComponent : IComponent;
+		TComponent Set<TComponent>(TComponent value, out bool exists);
 		
-		TComponent TryRemove<TComponent>(out bool success)
-			where TComponent : IComponent;
+		TComponent TryRemove<TComponent>(out bool success);
 	}
 	
 	public interface IEntityRef
 	{
-		IEntityKey Key { get; }
+		object EntityKey { get; }
 		
-		IComponent Get(Type componentType);
+		object Get(Type componentType);
 		
-		IComponent Set(Type componentType, IComponent value);
+		object Set(Type componentType, object value);
 		
-		IComponent Remove(Type componentType);
+		object Remove(Type componentType);
 	}
 }

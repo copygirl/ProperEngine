@@ -1,11 +1,10 @@
 using System;
 using System.Diagnostics;
-using ProperEngine.ES;
 
 namespace ProperEngine.Bloxel
 {
 	public class BlockStorage<T>
-		where T : struct, IComponent
+		where T : struct
 	{
 		public readonly T[] Data;
 		
