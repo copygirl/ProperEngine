@@ -83,34 +83,10 @@ namespace ProperEngine.ES.Raw.Collections
 		public IEnumerator<IComponentRef<TEntityKey, TComponent>> GetEnumerator()
 		{
 			foreach (var entry in _dict)
-				yield return new ComponentRef(entry);
+				yield return entry;
 		}
 		
 		IEnumerator IEnumerable.GetEnumerator()
 			=> GetEnumerator();
-		
-		
-		public readonly struct ComponentRef
-			: IComponentRef<TEntityKey, TComponent>
-		{
-			internal readonly RefDictionary<TEntityKey, TComponent>.EntryRef _entry;
-			
-			internal ComponentRef(RefDictionary<TEntityKey, TComponent>.EntryRef entry)
-				=> _entry = entry;
-			
-			public TEntityKey Key => _entry.Key;
-			
-			object IComponentRef.Key => Key;
-			
-			public TComponent Value {
-				get => _entry.Value;
-				set => _entry.Value = value;
-			}
-			
-			object IComponentRef.Value {
-				get => _entry.Value;
-				set => _entry.Value = value.Ensure<TComponent>(nameof(value));
-			}
-		}
 	}
 }

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using ProperEngine.ES;
 
 namespace ProperEngine.Utility
 {
 	internal class RefDictionary<TKey, TValue>
+		where TKey : struct
 	{
 		internal struct Entry
 		{
@@ -208,6 +210,7 @@ namespace ProperEngine.Utility
 		}
 		
 		public readonly struct EntryRef
+			: IComponentRef<TKey, TValue>
 		{
 			private readonly Entry[] _entries;
 			private readonly int _index;
@@ -217,6 +220,20 @@ namespace ProperEngine.Utility
 			
 			internal EntryRef(Entry[] entries, int index)
 				{ _entries = entries; _index = index; }
+			
+			// IComponentRef implementation
+			
+			TValue IComponentRef<TKey, TValue>.Value {
+				get => Value;
+				set => Value = value;
+			}
+			
+			object IComponentRef.Key => Key;
+			
+			object IComponentRef.Value {
+				get => Value;
+				set => Value = value.Ensure<TValue>(nameof(value));
+			}
 		}
 	}
 	
