@@ -52,42 +52,6 @@ namespace ProperEngine.Test
 			Assert.False(found);
 		}
 		
-		[Fact]
-		public void Basic_As_IComponentMap()
-		{
-			var map = (IComponentMap)Map;
-			
-			Assert.Equal(typeof(EntityID), map.EntityKeyType);
-			Assert.Equal(typeof(Position), map.ComponentType);
-			
-			var beforeCreated = map.Set(EntitySome, new Position(100, 100));
-			Assert.Null(beforeCreated);
-			
-			var nonExistent = map.Get(EntityNone);
-			Assert.Null(nonExistent);
-			
-			var beforeChanged = map.Set(EntitySome, new Position(200, 200));
-			Assert.Equal(new Position(100, 100), beforeChanged);
-			
-			var beforeRemoved = map.Set(EntitySome, null);
-			Assert.Equal(new Position(200, 200), beforeRemoved);
-			
-			var removeNonExistent = map.Set(EntitySome, null);
-			Assert.Null(removeNonExistent);
-		}
-		
-		[Fact]
-		public void Exceptions_As_IComponentMap()
-		{
-			var map = (IComponentMap)Map;
-			
-			Assert.Throws<ArgumentNullException>(() => map.Get(null));
-			Assert.Throws<ArgumentNullException>(() => map.Set(null, default(Position)));
-			
-			Assert.Throws<ArgumentException>(() => map.Get(new EntityID<byte>()));
-			Assert.Throws<ArgumentException>(() => map.Set(EntitySome, new Name("Error")));
-		}
-		
 		
 		[Fact]
 		public void Enumeration()

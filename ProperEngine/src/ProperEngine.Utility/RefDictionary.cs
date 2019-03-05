@@ -179,7 +179,7 @@ namespace ProperEngine.Utility
 		}
 		
 		
-		// IEntryEnumerable implementation
+		// Enumeration
 		
 		public Enumerator GetEnumerator()
 			=> new Enumerator(this);

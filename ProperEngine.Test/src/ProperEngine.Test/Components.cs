@@ -34,6 +34,7 @@ namespace ProperEngine.Test
 	}
 	
 	public class Name
+		: IEquatable<Name>
 	{
 		public string Value { get; }
 		
@@ -44,6 +45,22 @@ namespace ProperEngine.Test
 		}
 		
 		public override string ToString()
-			=> $"Name [ \"{ Value.ToLiteral() }\" ]";
+			=> $"Name [ { Value.ToLiteral() } ]";
+		
+		// IEquatable implementation
+		
+		public bool Equals(Name other)
+			=> (other != null) && (Value == other.Value);
+		public override bool Equals(object other)
+			=> Equals(other as Name);
+		
+		public static bool operator ==(Name left, Name right)
+			=> object.ReferenceEquals(left, right)
+			|| (left?.Equals(right) ?? false);
+		public static bool operator !=(Name left, Name right)
+			=> !(left == right);
+		
+		public override int GetHashCode()
+			=> Value.GetHashCode();
 	}
 }
