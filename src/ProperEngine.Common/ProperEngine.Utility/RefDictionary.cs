@@ -54,18 +54,19 @@ namespace ProperEngine.Utility
 		}
 		
 		
-		private void Initialize(int capacity) {
+		private void Initialize(int capacity)
+		{
 			int size = HashHelpers.GetPrime(capacity);
 			_buckets = new int[size];
 			_entries = new Entry[size];
-			Array.Fill(_buckets, -1);
+			ArrayFill(_buckets, -1);
 			_freeEntry = -1;
 		}
 		
 		public void Clear()
 		{
 			if (_count == 0) return;
-			Array.Fill(_buckets, -1);
+			ArrayFill(_buckets, -1);
 			Array.Clear(_entries, 0, _count);
 			_count     =  0;
 			_freeEntry = -1;
@@ -83,7 +84,7 @@ namespace ProperEngine.Utility
 			
 			var newBuckets = new int[newSize];
 			var newEntries = new Entry[newSize];
-			Array.Fill(newBuckets, -1);
+			ArrayFill(newBuckets, -1);
 			Array.Copy(_entries, 0, newEntries, 0, _count);
 			
 			for (int i = 0; i < _count; i++) {
@@ -97,6 +98,13 @@ namespace ProperEngine.Utility
 			_buckets = newBuckets;
 			_entries = newEntries;
 			_version++;
+		}
+		
+		/// <summary> Helper function to fill an array with a single value. </summary>
+		private static void ArrayFill<T>(T[] array, T value)
+		{
+			for (var i = 0; i < array.Length; i++)
+				array[i] = value;
 		}
 		
 		

@@ -1,6 +1,6 @@
 using System;
 
-namespace ProperEngine
+namespace ProperEngine.Server
 {
 	class Program
 	{

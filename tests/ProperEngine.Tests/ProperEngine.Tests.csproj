@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProperEngine\ProperEngine.csproj" />
+    <ProjectReference Include="../../src/ProperEngine.Common/ProperEngine.Common.csproj" />
   </ItemGroup>
 
 </Project>

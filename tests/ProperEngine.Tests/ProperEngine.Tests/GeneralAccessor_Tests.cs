@@ -4,7 +4,7 @@ using Xunit;
 using ProperEngine.ES;
 using ProperEngine.ES.Collections;
 
-namespace ProperEngine.Test
+namespace ProperEngine.Tests
 {
 	using EntityID = EntityID<UInt32>;
 

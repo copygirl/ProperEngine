@@ -1,25 +1,50 @@
 {
   "version": "0.2.0",
   "configurations": [{
-    "name": "Launch (Mono)",
+    "name": "Launch Client (Mono)",
     "type": "mono",
     "request": "launch",
     "preLaunchTask": "build",
     
     "cwd": "${workspaceFolder}/",
-    "program": "${workspaceFolder}/ProperEngine/bin/Debug/netcoreapp2.2/ProperEngine.dll",
+    "program": "${workspaceFolder}/src/ProperEngine.Client/bin/Debug/netcoreapp2.2/ProperEngine.Client.dll",
     "args": [],
     
     "console": "internalConsole",
     "internalConsoleOptions": "openOnSessionStart",
   },{
-    "name": "Launch (CoreCLR)",
+    "name": "Launch Client (CoreCLR)",
     "type": "coreclr",
     "request": "launch",
     "preLaunchTask": "build",
     
     "cwd": "${workspaceFolder}/",
-    "program": "${workspaceFolder}/ProperEngine/bin/Debug/netcoreapp2.2/ProperEngine.dll",
+    "program": "${workspaceFolder}/src/ProperEngine.Client/bin/Debug/netcoreapp2.2/ProperEngine.Client.dll",
+    "args": [],
+    
+    "console": "internalConsole",
+    "internalConsoleOptions": "openOnSessionStart",
+    "stopAtEntry": false,
+  },{
+    "name": "Launch Server (Mono)",
+    "type": "mono",
+    "request": "launch",
+    "preLaunchTask": "build",
+    
+    "cwd": "${workspaceFolder}/",
+    "program": "${workspaceFolder}/src/ProperEngine.Server/bin/Debug/netcoreapp2.2/ProperEngine.Server.dll",
+    "args": [],
+    
+    "console": "internalConsole",
+    "internalConsoleOptions": "openOnSessionStart",
+  },{
+    "name": "Launch Server (CoreCLR)",
+    "type": "coreclr",
+    "request": "launch",
+    "preLaunchTask": "build",
+    
+    "cwd": "${workspaceFolder}/",
+    "program": "${workspaceFolder}/src/ProperEngine.Server/bin/Debug/netcoreapp2.2/ProperEngine.Server.dll",
     "args": [],
     
     "console": "internalConsole",

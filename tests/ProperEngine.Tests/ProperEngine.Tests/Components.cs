@@ -1,7 +1,7 @@
 using System;
 using ProperEngine.Utility;
 
-namespace ProperEngine.Test
+namespace ProperEngine.Tests
 {
 	public struct Position
 		: IEquatable<Position>
