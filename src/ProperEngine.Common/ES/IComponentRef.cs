@@ -1,4 +1,4 @@
-namespace ProperEngine.ES
+namespace ProperEngine.Common.ES
 {
 	public interface IComponentRef<TEntityKey, TComponent> : IComponentRef
 		where TEntityKey : struct

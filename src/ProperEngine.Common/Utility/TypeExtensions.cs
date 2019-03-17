@@ -1,6 +1,6 @@
 using System;
 
-namespace ProperEngine.Utility
+namespace ProperEngine.Common.Utility
 {
 	public static class TypeExtensions
 	{

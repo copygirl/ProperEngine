@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ProperEngine.Utility;
+using ProperEngine.Common.Utility;
 
-namespace ProperEngine.ES.Collections
+namespace ProperEngine.Common.ES.Collections
 {
 	public class ComponentDictionary<TEntityKey, TComponent>
 			: IComponentMap<TEntityKey, TComponent>

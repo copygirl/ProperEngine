@@ -14,7 +14,7 @@
     "type": "process",
     "problemMatcher": "$msCompile",
     
-    "options": { "cwd": "${workspaceFolder}/ProperEngine.Test/" },
+    "options": { "cwd": "${workspaceFolder}/tests/ProperEngine.Tests/" },
     "command": "dotnet",
     "args": [ "test" ]
   }]

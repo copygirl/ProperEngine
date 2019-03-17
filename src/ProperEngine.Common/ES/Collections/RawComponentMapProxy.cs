@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
-using ProperEngine.Utility;
+using ProperEngine.Common.Utility;
 
-namespace ProperEngine.ES.Raw.Collections
+namespace ProperEngine.Common.ES.Raw.Collections
 {
 	internal class RawComponentMapProxy<TEntityKey, TComponent>
 			: IComponentMap<TEntityKey, TComponent?>

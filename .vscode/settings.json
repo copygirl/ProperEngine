@@ -4,4 +4,10 @@
   "editor.rulers": [ 80 ],
   
   "diffEditor.ignoreTrimWhitespace": false,
+  
+  "files.exclude": {
+    "**/.git": true,
+    "**/bin/": true,
+    "**/obj/": true,
+  }
 }

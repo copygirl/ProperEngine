@@ -1,7 +1,7 @@
 using System;
-using ProperEngine.Utility;
+using ProperEngine.Common.Utility;
 
-namespace ProperEngine.Bloxel
+namespace ProperEngine.Common.Bloxel
 {
 	public struct BlockPos
 		: IEquatable<BlockPos>

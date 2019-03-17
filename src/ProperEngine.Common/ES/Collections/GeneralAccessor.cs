@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using ProperEngine.ES.Raw;
-using ProperEngine.ES.Raw.Collections;
+using ProperEngine.Common.ES.Raw;
+using ProperEngine.Common.ES.Raw.Collections;
 
-namespace ProperEngine.ES.Collections
+namespace ProperEngine.Common.ES.Collections
 {
 	public class GeneralAccessor<TEntityKey>
 			: IAccessor<TEntityKey>

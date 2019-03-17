@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace ProperEngine.Bloxel
+namespace ProperEngine.Common.Bloxel
 {
 	public class BlockStorage<T>
 		where T : struct

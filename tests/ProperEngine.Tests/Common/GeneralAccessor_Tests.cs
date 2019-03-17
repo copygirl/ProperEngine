@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using Xunit;
-using ProperEngine.ES;
-using ProperEngine.ES.Collections;
+using ProperEngine.Common.ES;
+using ProperEngine.Common.ES.Collections;
 
-namespace ProperEngine.Tests
+namespace ProperEngine.Tests.Common
 {
 	using EntityID = EntityID<UInt32>;
 

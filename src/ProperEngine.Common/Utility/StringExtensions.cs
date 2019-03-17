@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Text;
 
-namespace ProperEngine.Utility
+namespace ProperEngine.Common.Utility
 {
 	public static class StringExtension
 	{

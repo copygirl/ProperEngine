@@ -1,5 +1,5 @@
 using System;
-using ProperEngine.Utility;
+using ProperEngine.Common.Utility;
 
 namespace ProperEngine.Tests
 {

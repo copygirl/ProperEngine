@@ -5,4 +5,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../../lib/lidgren-network-gen3/Lidgren.Network.MultiTarget/Lidgren.Network.MultiTarget.csproj" />
+    <ProjectReference Include="../../lib/MessagePack-CSharp/src/MessagePack/MessagePack.csproj" />
+  </ItemGroup>
+
 </Project>

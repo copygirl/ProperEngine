@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace ProperEngine.ES
+namespace ProperEngine.Common.ES
 {
 	public interface IComponentMap<TEntityKey, TComponent> : IComponentMap
 		where TEntityKey : struct

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProperEngine.ES
+namespace ProperEngine.Common.ES
 {
 	public readonly struct EntityID<T>
 			: IEquatable<EntityID<T>>

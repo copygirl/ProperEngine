@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using ProperEngine.ES;
+using ProperEngine.Common.ES;
 
-namespace ProperEngine.Utility
+namespace ProperEngine.Common.Utility
 {
 	internal class RefDictionary<TKey, TValue>
 		where TKey : struct

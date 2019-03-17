@@ -1,6 +1,6 @@
 using System;
 
-namespace ProperEngine.ES.Raw
+namespace ProperEngine.Common.ES.Raw
 {
 	public interface IRawComponentMap<TEntityKey, TComponent>
 		where TEntityKey : struct

@@ -31,7 +31,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 
-namespace ProperEngine.Utility
+namespace ProperEngine.Common.Utility
 {
 	public static class HashHelpers
 	{

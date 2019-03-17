@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using ProperEngine.Utility;
+using ProperEngine.Common.Utility;
 
-namespace ProperEngine.ES.Raw.Collections
+namespace ProperEngine.Common.ES.Raw.Collections
 {
 	public class RawComponentMap<TEntityKey, TComponent>
 			: IRawComponentMap<TEntityKey, TComponent>

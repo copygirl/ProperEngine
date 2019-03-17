@@ -1,6 +1,6 @@
 using System;
 
-namespace ProperEngine.ES
+namespace ProperEngine.Common.ES
 {
 	public interface IEntityRef<TEntityKey> : IEntityRef
 		where TEntityKey : struct
